@@ -8,6 +8,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -30,6 +31,7 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
         <script src="data/nov_2019_1.js"></script>
         <script src="data/dic_2019_2.js"></script>
         <script src="data/ene_2020_3.js"></script>
@@ -56,25 +58,37 @@
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
             if (bounds_group.getLayers().length) {
                 map.fitBounds(bounds_group.getBounds());
             }
         }
-        map.createPane('pane_OpenStreetMapmonochrome_0');
-        map.getPane('pane_OpenStreetMapmonochrome_0').style.zIndex = 400;
-        var layer_OpenStreetMapmonochrome_0 = L.tileLayer('http://a.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png', {
-            pane: 'pane_OpenStreetMapmonochrome_0',
+        map.createPane('pane_OSMTFTransportDark_0');
+        map.getPane('pane_OSMTFTransportDark_0').style.zIndex = 400;
+        var layer_OSMTFTransportDark_0 = L.tileLayer('http://tile.thunderforest.com/transport-dark/{z}/{x}/{y}.png', {
+            pane: 'pane_OSMTFTransportDark_0',
             opacity: 1.0,
-            attribution: '',
+            attribution: '<a href="https://www.openstreetmap.org/copyright">Maps © Thunderforest, Data © OpenStreetMap contributors</a>',
             minZoom: 1,
             maxZoom: 28,
             minNativeZoom: 0,
-            maxNativeZoom: 18
+            maxNativeZoom: 19
         });
-        layer_OpenStreetMapmonochrome_0;
-        map.addLayer(layer_OpenStreetMapmonochrome_0);
+        layer_OSMTFTransportDark_0;
+        map.addLayer(layer_OSMTFTransportDark_0);
         function pop_nov_2019_1(feature, layer) {
             layer.on({
                 mouseout: function(e) {
@@ -108,7 +122,7 @@
         var pattern_nov_2019_1_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -223,7 +237,7 @@
         var pattern_dic_2019_2_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -338,7 +352,7 @@
         var pattern_ene_2020_3_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -453,7 +467,7 @@
         var pattern_feb_2020_4_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -568,7 +582,7 @@
         var pattern_mar_2020_5_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -683,7 +697,7 @@
         var pattern_abr_2020_6_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -798,7 +812,7 @@
         var pattern_may_2020_7_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -913,7 +927,7 @@
         var pattern_oct_2019_8_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1028,7 +1042,7 @@
         var pattern_jun_2020_9_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1143,7 +1157,7 @@
         var pattern_jul_2020_10_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1258,7 +1272,7 @@
         var pattern_ago_2020_11_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1373,7 +1387,7 @@
         var pattern_sep_2020_12_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1488,7 +1502,7 @@
         var pattern_oct_2020_13_0 = new L.StripePattern({
             weight: 0.1,
             spaceWeight: 2.0,
-            color: '#8c8c8c',
+            color: '#ffffcc',
             opacity: 1.0,
             spaceOpacity: 0,
             angle: 315
@@ -1571,7 +1585,7 @@
         });
         bounds_group.addLayer(layer_oct_2020_13);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'oct_2020<br /><table><tr><td style="text-align: center;"><img src="legend/oct_2020_13_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_oct_2020_13,'sep_2020<br /><table><tr><td style="text-align: center;"><img src="legend/sep_2020_12_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_sep_2020_12,'ago_2020<br /><table><tr><td style="text-align: center;"><img src="legend/ago_2020_11_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_ago_2020_11,'jul_2020<br /><table><tr><td style="text-align: center;"><img src="legend/jul_2020_10_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_jul_2020_10,'jun_2020<br /><table><tr><td style="text-align: center;"><img src="legend/jun_2020_9_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_jun_2020_9,'oct_2019<br /><table><tr><td style="text-align: center;"><img src="legend/oct_2019_8_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_oct_2019_8,'may_2020<br /><table><tr><td style="text-align: center;"><img src="legend/may_2020_7_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_may_2020_7,'abr_2020<br /><table><tr><td style="text-align: center;"><img src="legend/abr_2020_6_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_abr_2020_6,'mar_2020<br /><table><tr><td style="text-align: center;"><img src="legend/mar_2020_5_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_mar_2020_5,'feb_2020<br /><table><tr><td style="text-align: center;"><img src="legend/feb_2020_4_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_feb_2020_4,'ene_2020<br /><table><tr><td style="text-align: center;"><img src="legend/ene_2020_3_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_ene_2020_3,'dic_2019<br /><table><tr><td style="text-align: center;"><img src="legend/dic_2019_2_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_dic_2019_2,'nov_2019<br /><table><tr><td style="text-align: center;"><img src="legend/nov_2019_1_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_nov_2019_1,"OpenStreetMap monochrome": layer_OpenStreetMapmonochrome_0,}).addTo(map);
+        L.control.layers(baseMaps,{'oct_2020<br /><table><tr><td style="text-align: center;"><img src="legend/oct_2020_13_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2020_13_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_oct_2020_13,'sep_2020<br /><table><tr><td style="text-align: center;"><img src="legend/sep_2020_12_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/sep_2020_12_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_sep_2020_12,'ago_2020<br /><table><tr><td style="text-align: center;"><img src="legend/ago_2020_11_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ago_2020_11_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_ago_2020_11,'jul_2020<br /><table><tr><td style="text-align: center;"><img src="legend/jul_2020_10_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jul_2020_10_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_jul_2020_10,'jun_2020<br /><table><tr><td style="text-align: center;"><img src="legend/jun_2020_9_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/jun_2020_9_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_jun_2020_9,'oct_2019<br /><table><tr><td style="text-align: center;"><img src="legend/oct_2019_8_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/oct_2019_8_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_oct_2019_8,'may_2020<br /><table><tr><td style="text-align: center;"><img src="legend/may_2020_7_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/may_2020_7_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_may_2020_7,'abr_2020<br /><table><tr><td style="text-align: center;"><img src="legend/abr_2020_6_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/abr_2020_6_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_abr_2020_6,'mar_2020<br /><table><tr><td style="text-align: center;"><img src="legend/mar_2020_5_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/mar_2020_5_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_mar_2020_5,'feb_2020<br /><table><tr><td style="text-align: center;"><img src="legend/feb_2020_4_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/feb_2020_4_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_feb_2020_4,'ene_2020<br /><table><tr><td style="text-align: center;"><img src="legend/ene_2020_3_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/ene_2020_3_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_ene_2020_3,'dic_2019<br /><table><tr><td style="text-align: center;"><img src="legend/dic_2019_2_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/dic_2019_2_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_dic_2019_2,'nov_2019<br /><table><tr><td style="text-align: center;"><img src="legend/nov_2019_1_MuyAlta0.png" /></td><td>Muy Alta</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Alta1.png" /></td><td>Alta</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Media2.png" /></td><td>Media</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_Baja3.png" /></td><td>Baja</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_MuyBaja4.png" /></td><td>Muy Baja</td></tr><tr><td style="text-align: center;"><img src="legend/nov_2019_1_SinDatos5.png" /></td><td>Sin Datos</td></tr></table>': layer_nov_2019_1,"OSM TF Transport Dark": layer_OSMTFTransportDark_0,}).addTo(map);
         setBounds();
         </script>
     </body>
